@@ -1,0 +1,41 @@
+# suppress inspection "LSPLocalInspectionTool" for whole file
+quarkus:
+  banner:
+    enabled: false
+  datasource:
+    db-kind: postgresql
+    username: sample
+    password: sample
+    jdbc:
+      url: jdbc:postgresql://localhost:5432/sample
+  redis:
+    hosts: redis://localhost:6379
+  hibernate-orm:
+    database:
+      generation: drop-and-create
+  log:
+    level: INFO
+    category:
+      "dev.mbo":
+        level: DEBUG
+  smallrye-openapi:
+    path: /q/openapi
+    info-title: Example API
+    info-version: 1.0.1
+    info-description: Just an example service
+    info-terms-of-service: Your terms here
+    info-contact-email: techsupport@example.com
+    info-contact-name: Example API Support
+    info-contact-url: http://exampleurl.com/contact
+    info-license-name: Apache 2.0
+    info-license-url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+  swagger-ui:
+    path: /q/swagger-ui
+    always-include: true
+
+mp:
+  openapi:
+    extensions:
+      smallrye:
+        operationIdStrategy: CLASS_METHOD
