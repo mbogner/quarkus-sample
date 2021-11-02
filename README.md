@@ -54,3 +54,9 @@ If you want to learn more about building native executables, please consult http
 Easily start your RESTful Web Services
 
 [Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
+
+
+## Dockerize
+
+First run `package native` or `container native` runner followed by `dockerize.sh` which will create docker image(s).
+That image is then used by `docker-run.sh` in docker-compose-cloud.yml to boot a complete environment for the app.
