@@ -1,3 +1,3 @@
 quarkus:
   smallrye-openapi:
-    info-title: Example API (development)
+    info-title: Example API (dev)

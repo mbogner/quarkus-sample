@@ -8,11 +8,10 @@ quarkus:
     password: sample
     jdbc:
       url: jdbc:postgresql://localhost:5432/sample
+  flyway:
+    migrate-at-start: true
   redis:
     hosts: redis://localhost:6379
-  hibernate-orm:
-    database:
-      generation: drop-and-create
   log:
     level: INFO
     category:
@@ -20,7 +19,7 @@ quarkus:
         level: DEBUG
   smallrye-openapi:
     path: /q/openapi
-    info-title: Example API
+    info-title: Example API (default)
     info-version: 1.0.1
     info-description: Just an example service
     info-terms-of-service: Your terms here

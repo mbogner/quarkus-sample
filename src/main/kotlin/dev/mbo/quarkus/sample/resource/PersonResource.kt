@@ -6,6 +6,7 @@ import javax.transaction.Transactional
 import javax.ws.rs.Consumes
 import javax.ws.rs.DELETE
 import javax.ws.rs.GET
+import javax.ws.rs.NotFoundException
 import javax.ws.rs.POST
 import javax.ws.rs.PUT
 import javax.ws.rs.Path
@@ -26,8 +27,8 @@ class PersonResource {
 
     @GET
     @Path("/{id}")
-    operator fun get(@PathParam("id") id: Int): Person {
-        return Person.findById(id)
+    operator fun get(@PathParam("id") id: Long): Person {
+        return Person.findById(id) ?: throw NotFoundException()
     }
 
     @POST
@@ -41,27 +42,31 @@ class PersonResource {
     @Path("/{id}")
     @Transactional
     fun update(
-        @PathParam("id") id: Int,
+        @PathParam("id") id: Long,
         person: Person
-    ): Person {
-        val entity: Person = Person.findById(id)
+    ): Person? {
+        val entity = Person.findById(id)
 
         // map all fields from the person parameter to the existing entity
-        entity.name = person.name
+        entity?.name = person.name
+        entity?.persist()
         return entity
     }
 
     @DELETE
     @Path("/{id}")
     @Transactional
-    fun delete(@PathParam("id") id: Int) {
+    fun delete(@PathParam("id") id: Long) {
         Person.deleteById(id)
     }
 
     @GET
     @Path("/search/{name}")
-    fun search(@PathParam("name") name: String?): Person {
-        return Person.findByName(name!!)
+    fun search(@PathParam("name") name: String?): Person? {
+        if (null == name) {
+            throw NotFoundException()
+        }
+        return Person.findByName(name)
     }
 
     @GET
